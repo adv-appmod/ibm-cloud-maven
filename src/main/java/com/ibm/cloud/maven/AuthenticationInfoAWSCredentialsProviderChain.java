@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package org.springframework.build.aws.maven;
+package com.ibm.cloud.maven;
 
-import com.amazonaws.auth.AWSCredentialsProviderChain;
-import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
-import com.amazonaws.auth.InstanceProfileCredentialsProvider;
-import com.amazonaws.auth.SystemPropertiesCredentialsProvider;
+import com.ibm.cloud.objectstorage.auth.AWSCredentialsProviderChain;
+import com.ibm.cloud.objectstorage.auth.EnvironmentVariableCredentialsProvider;
+import com.ibm.cloud.objectstorage.auth.InstanceProfileCredentialsProvider;
+import com.ibm.cloud.objectstorage.auth.SystemPropertiesCredentialsProvider;
 import org.apache.maven.wagon.authentication.AuthenticationInfo;
 
 final class AuthenticationInfoAWSCredentialsProviderChain extends AWSCredentialsProviderChain {
@@ -27,7 +27,7 @@ final class AuthenticationInfoAWSCredentialsProviderChain extends AWSCredentials
     AuthenticationInfoAWSCredentialsProviderChain(AuthenticationInfo authenticationInfo) {
         super(new EnvironmentVariableCredentialsProvider(),
                 new SystemPropertiesCredentialsProvider(),
-                new InstanceProfileCredentialsProvider(),
+                InstanceProfileCredentialsProvider.getInstance(),
                 new AuthenticationInfoAWSCredentialsProvider(authenticationInfo));
     }
 }

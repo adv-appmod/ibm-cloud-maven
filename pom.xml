@@ -3,53 +3,38 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.springframework.build</groupId>
-	<artifactId>aws-maven</artifactId>
+	<groupId>com.ibm.cloud</groupId>
+	<artifactId>ibm-cloud-maven</artifactId>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
-	<version>5.1.0.BUILD-SNAPSHOT</version>
-	<name>Amazon Web Services S3 Maven Wagon Support</name>
-	<description>Standard Maven wagon support for s3:// urls</description>
+	<name>IBM COS Maven Wagon Support</name>
+	<description>A Maven wagon support for cos:// urls against IBM cloud</description>
 
 	<properties>
-		<amazonaws.version>1.7.1</amazonaws.version>
+		<ibm.cloud.version>2.13.6</ibm.cloud.version>
 		<junit.version>4.11</junit.version>
-		<logback.version>1.1.1</logback.version>
-		<mockito.version>1.9.5</mockito.version>
-		<slf4j.version>1.7.6</slf4j.version>
-		<wagon.version>2.6</wagon.version>
+<!--		<logback.version>1.1.1</logback.version>
+-->		
+    <mockito.version>5.12.0</mockito.version>
+<!--		<slf4j.version>1.7.6</slf4j.version>
+-->	
+	<wagon.version>3.5.3</wagon.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
-		<dependency>
+<!--		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk</artifactId>
-			<version>${amazonaws.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.mail</groupId>
-					<artifactId>mail</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>stax</groupId>
-					<artifactId>stax-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>stax</groupId>
-					<artifactId>stax</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+--> 
+   <dependency>
+      <groupId>com.ibm.cos</groupId>
+      <artifactId>ibm-cos-java-sdk</artifactId>
+      <version>${ibm.cloud.version}</version>
+    </dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -68,7 +53,8 @@
 			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+<!--
+    <dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${slf4j.version}</version>
@@ -78,28 +64,29 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
-	</dependencies>
+-->	
+  </dependencies>
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-				</configuration>
-			</plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <source>21</source>
+          <target>21</target>
+        </configuration>
+      </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.8.1</version>
+				<version>3.1.2</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.6</version>
+				<version>3.3.1</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
 				</configuration>
@@ -107,57 +94,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.16</version>
+				<version>3.3.1</version>
 				<configuration>
 					<runOrder>random</runOrder>
 				</configuration>
 			</plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>2.2</version>
-            </plugin>
 		</plugins>
 	</build>
-
-	<url>https://github.com/spring-projects/aws-maven</url>
-
-	<inceptionYear>2007</inceptionYear>
-
-	<licenses>
-		<license>
-			<name>Apache License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-
-	<scm>
-		<connection>scm:git:https://github.com/spring-projects/aws-maven.git</connection>
-		<url>https://github.com/spring-projects/aws-maven</url>
-	</scm>
-
-	<organization>
-		<name>Spring Framework</name>
-		<url>http://spring.io</url>
-	</organization>
-
-	<ciManagement>
-		<system>Bamboo</system>
-		<url>https://build.springsource.org/browse/BUILD-AWSMAVEN</url>
-	</ciManagement>
-
-	<issueManagement>
-		<system>Github</system>
-		<url>https://github.com/spring-projects/aws-maven/issues</url>
-	</issueManagement>
-
-	<developers>
-		<developer>
-			<id>nebhale</id>
-			<name>Ben Hale</name>
-			<email>bhale@gopivotal.com</email>
-		</developer>
-	</developers>
-
 </project>

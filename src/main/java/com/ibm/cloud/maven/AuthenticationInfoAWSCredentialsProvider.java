@@ -14,26 +14,27 @@
  * limitations under the License.
  */
 
-package org.springframework.build.aws.maven;
+package com.ibm.cloud.maven;
 
-import com.amazonaws.auth.AWSCredentials;
+import com.ibm.cloud.objectstorage.auth.AWSCredentials;
+import com.ibm.cloud.objectstorage.auth.AWSCredentialsProvider;
 import org.apache.maven.wagon.authentication.AuthenticationInfo;
 
-final class AuthenticationInfoAWSCredentials implements AWSCredentials {
+final class AuthenticationInfoAWSCredentialsProvider implements AWSCredentialsProvider {
 
     private final AuthenticationInfo authenticationInfo;
 
-    AuthenticationInfoAWSCredentials(AuthenticationInfo authenticationInfo) {
+    AuthenticationInfoAWSCredentialsProvider(AuthenticationInfo authenticationInfo) {
         this.authenticationInfo = authenticationInfo;
     }
 
     @Override
-    public String getAWSAccessKeyId() {
-        return this.authenticationInfo.getUserName();
+    public AWSCredentials getCredentials() {
+        return this.authenticationInfo != null ? new AuthenticationInfoAWSCredentials(this.authenticationInfo) : null;
     }
 
     @Override
-    public String getAWSSecretKey() {
-        return this.authenticationInfo.getPassword();
+    public void refresh() {
     }
+
 }
